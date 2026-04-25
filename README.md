@@ -1,39 +1,36 @@
-/ LibrarySystem.sln
-├── .gitignore                    # Standard .NET ignore file
-├── README.md                     # Group/Team name and documentation
+## Project Structure
+
+~~~
+
 ├── src/
-│   ├── Library.Api/ (Entry Point & Controllers)
-│   │   ├── Controllers/
-│   │   │   ├── BooksController.cs       # Routes for CRUD on Books
-│   │   │   ├── BorrowsController.cs     # Routes for Borrowing/Returning/History
-│   │   │   └── MembersController.cs     # Routes for Member management
-│   │   ├── Program.cs                   # Registers Services, Repos, and DB
-│   │   └── appsettings.json             # DB Connection strings
+│   ├── Library.Api/                 # Presentation Layer (API Endpoints & Config)
+│   │   ├── Controllers/             # API Route Handlers (Books, Borrows, Members)
+│   │   ├── Middleware/              # Global Error Handling
+│   │   ├── Properties/              # Debug/Launch Profiles
+│   │   ├── appsettings.json         # Configuration & Connection Strings
+│   │   ├── Library.Api.csproj       # Project Metadata
+│   │   ├── Library.http             # API Testing File
+│   │   └── Program.cs               # App Startup & Dependency Injection
 │   │
-│   ├── Library.Application/ (Business Logic & DTOs)
-│   │   ├── DTOs/
-│   │   │   ├── BookDtos.cs              # Request/Response models for Books
-│   │   │   ├── MemberDtos.cs            # Added: MembershipDate field
-│   │   │   └── BorrowDtos.cs            # Added: BorrowDate, ReturnDate, Status fields
-│   │   ├── Interfaces/                  # Contracts for the Services
-│   │   └── Services/
-│   │       ├── BookService.cs           # Book logic (Validating copy counts)
-│   │       ├── MemberService.cs         # Member logic (Setting MembershipDate)
-│   │       └── BorrowService.cs         # Core logic (Updating AvailableCopies)
+│   ├── Library.Application/         # Application Layer (Business Logic)
+│   │   ├── DTOs/                    # Data Transfer Objects for API Requests/Responses
+│   │   ├── Exceptions/              # Custom Domain-Specific Exceptions
+│   │   ├── Interfaces/              # Service Contracts
+│   │   ├── Services/                # Logic Implementations (e.g., Borrowing rules)
+│   │   └── Library.Application.csproj
 │   │
-│   ├── Library.Domain/ (Core Models)
-│   │   ├── Entities/
-│   │   │   ├── Book.cs                  # Props: Title, Author, ISBN, Copies
-│   │   │   ├── Member.cs                # Props: FullName, Email, MembershipDate
-│   │   │   └── BorrowRecord.cs          # Props: Dates and Status ("Borrowed"/"Returned")
-│   │   └── Interfaces/                  # Repository contracts (IBookRepository, etc.)
+│   ├── Library.Domain/              # Domain Layer (Core Entities & Contracts)
+│   │   ├── Entities/                # Database Models (Book, Member, etc.)
+│   │   ├── Interfaces/              # Repository Contracts (Data access definitions)
+│   │   └── Library.Domain.csproj
 │   │
-│   └── Library.Infrastructure/ (Data Access)
-│       ├── Data/
-│       │   └── AppDbContext.cs          # EF Core context for DB tables
-│       └── Repositories/
-│           ├── BookRepository.cs        # Direct Database queries for Books
-│           ├── MemberRepository.cs      # Direct Database queries for Members
-│           └── BorrowRepository.cs      # Added: Logic to find "Active" borrows
+│   └── Library.Infrastructure/      # Infrastructure Layer (Data Access)
+│       ├── Data/                    # Database Context (EF Core)
+│       ├── Repositories/            # Concrete Data Access Implementations
+│       └── Library.Infrastructure.csproj
 │
-└── Library.sln
+├── .gitignore                       # Ignored Git Files (bin/obj/etc.)
+├── Library.sln                      # Visual Studio Solution File
+└── README.md                        # Project Documentation
+
+~~~
