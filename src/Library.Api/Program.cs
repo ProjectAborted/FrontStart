@@ -9,9 +9,8 @@ using Library.Api.Middleware;
 var builder = WebApplication.CreateBuilder(args);
 
 // Database Configuration ------
-// Configures EntityCoreFramework to use SQL Server w/ connection string from appsettings.json
 builder.Services.AddDbContext<AppDbContext>(opt =>
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Repositories ------
 builder.Services.AddScoped<IBookRepository, BookRepository>();
