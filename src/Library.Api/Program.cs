@@ -28,6 +28,10 @@ builder.Services.AddMemoryCache();
 
 // API Setup ------
 // Controller-based routing
+builder.Services.AddRouting(options =>
+{
+    options.LowercaseUrls = true;
+});
 builder.Services.AddControllers();
 
 // launchSettings.json opens /swagger on launch,
